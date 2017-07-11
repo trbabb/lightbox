@@ -414,13 +414,13 @@ mul(Md *into, const Ma &a, const Mb &b) {
     // do the source matrix dimensions agree?
     // any compiler worth its salt should eliminate this test for template instantiations with static-dimensioned operands
     if ((A::COLDIM == DYNAMIC_DIM or B::ROWDIM == DYNAMIC_DIM) and A::cols(a) != B::rows(b)) {
-        throw std::out_of_range();
+        throw std::out_of_range("matrix dimension mismatch");
     }
     // does the destination matrix have correct dims?
     // again, runtime checks are to be avoided.
     if (((D::ROWDIM == DYNAMIC_DIM or A::ROWDIM == DYNAMIC_DIM) and A::rows(a) != D::rows(*into)) or 
         ((D::COLDIM == DYNAMIC_DIM or B::COLDIM == DYNAMIC_DIM) and B::cols(b) != D::cols(*into))) {
-        throw std::out_of_range();
+        throw std::out_of_range("matrix dimension mismatch");
     }
 #endif
     
@@ -465,7 +465,7 @@ mul(Md *into, const Ma &a, const Mb &b) {
     // if neither configuration yields dimension agreement:
     if (not ((Dr::rows(*into) == A::rows(a) and Dr::cols(*into) == B::cols(b)) or
              (Dc::rows(*into) == A::rows(a) and Dc::cols(*into) == B::cols(b))) ) {
-        throw std::out_of_range();
+        throw std::out_of_range("matrix dimension mismatch");
     }
 #endif
     
@@ -519,7 +519,7 @@ mul(const Ma &a, const Mb &b) {
 #ifdef GEOMC_MTX_CHECK_DIMS
     // dynamic dimensions match?
     if ((A::COLDIM == DYNAMIC_DIM or B::ROWDIM == DYNAMIC_DIM) and A::cols(a) != B::rows(b)) {
-        throw std::out_of_range();
+        throw std::out_of_range("matrix dimension mismatch");
     }
 #endif
     
@@ -559,7 +559,7 @@ transpose(Md *into, const Mx &m) {
     // dimension mismatch?
     if ((Md::ROWDIM * Mx::COLDIM == 0 and into->rows() != m.cols()) or 
         (Md::COLDIM * Mx::ROWDIM == 0 and into->cols() != m.rows())) {
-        throw std::out_of_range();
+        throw std::out_of_range("matrix dimension mismatch");
     }
 #endif
     
@@ -623,7 +623,7 @@ bool inv(Md *into, const Mx &src,
     typedef detail::_ImplMtxInv<Mx> inv_t;
 #ifdef GEOMC_MTX_CHECK_DIMS
     if (Mx::ROWDIM * Mx::COLDIM == DYNAMIC_DIM and src.rows() != src.cols()) {
-        throw std::out_of_range();
+        throw std::out_of_range("nonsquare matrix");
     } 
     detail::MatrixDimensionMatch<Md,Mx>::check(*into, src);
 #endif
@@ -655,7 +655,7 @@ typename detail::_ImplMtxInv<Mx>::return_t inv(const Mx &m, bool *success,
     
 #ifdef GEOMC_MTX_CHECK_DIMS
     if ((Mx::ROWDIM == DYNAMIC_DIM or Mx::COLDIM == DYNAMIC_DIM) and m.rows() != m.cols()) {
-        throw std::out_of_range();
+        throw std::out_of_range("nonsquare matrix");
     }
 #endif
     

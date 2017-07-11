@@ -9,7 +9,7 @@ IFLAGS   = $(addprefix -I, $(INCLUDES))
 
 # link
 LIBDIRS  = /usr/local/boost/stage/lib
-LIBS     = png zd
+LIBS     = png z
 LDFLAGS  = $(addprefix -l, $(LIBS)) $(addprefix -L, $(LIBDIRS)) 
 
 # sources
