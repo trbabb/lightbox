@@ -26,9 +26,10 @@ inline Vec3d render_pixel(Vec2d xy) {
 void render_image(Image<double,3>& img) {
     for (index_t y = 0; y < img.height; ++y) {
         for (index_t x = 0; x < img.width; ++x) {
-            Vec2i xy = Vec2i(x,y);
-            Vec2d st = ((Vec2d)(xy)) / img.width;
-            st -= Vec2d(0.5, (0.5 * img.height) / img.width);
+            Vec2i xy = Vec2i(x,y);                // integer pixel coordinates
+            Vec2d st = ((Vec2d)(xy)) / img.width; // floating point image coordinates
+            st -= Vec2d(0.5, (0.5 * img.height) / img.width); // center on (0,0)
+            
             img[xy] = render_pixel(st);
         }
     }
