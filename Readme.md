@@ -1,7 +1,7 @@
 Lightbox
 ========
 
-The is a simple template project for making a raytracer project in C++.
+This is a simple template project for making a raytracer project in C++.
 
 It contains a subset of [geomc](https://github.com/trbabb/geomc) with most of the shapes and tracing functions removed (since implementing those is the whole point!). Still available are vectors, matrices, quaternions, and rects/ranges.
 
