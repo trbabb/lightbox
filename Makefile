@@ -27,10 +27,15 @@ clean:
 
 ## binaries
 
-lightbox: build/lightbox.o
+lightbox: build/lightbox.o bin
 	$(CC) $(LDFLAGS) build/lightbox.o -o bin/lightbox
 
-build/%.o : src/%.cpp
+build/%.o : src/%.cpp build
 	mkdir -p $(patsubst src/%, build/%, $(dir $<))
 	$(CC) $(CFLAGS) $(IFLAGS) -o $@ $<
 
+build:
+	mkdir build
+
+bin:
+	mkdir bin
