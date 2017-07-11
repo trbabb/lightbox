@@ -17,7 +17,7 @@ SRC      = $(wildcard src/*.cpp) \
 OBJ      = $(patsubst src/%.cpp, build/%.o, $(SRC))
 
 
-all: lightbox 
+all: lightbox
 
 clean:
 	rm -rf ./build/*
