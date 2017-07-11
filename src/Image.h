@@ -17,12 +17,14 @@
 using namespace geom;
  
 
+// clip `val` to lie between `lo` and `hi`.
 template <typename T>
 inline T clamp(T val, T lo, T hi) {
     return std::max(std::min(val, hi), lo);
 }
 
 
+// class holding a 2D image, with channel values of type T.
 template <typename T, index_t Channels>
 class Image {
     public:
@@ -66,6 +68,8 @@ class Image {
 };
 
 
+// get the raw data bytes to write to file.
+// converts each pixel to an integer and orders the channels and bytes the correct way.
 template <typename T, index_t Channels>
 png_bytep* png_data(
         const Image<T,Channels> &img, 
@@ -112,6 +116,7 @@ png_bytep* png_data(
 }
 
 
+// save an image to a PNG file.
 template <typename T, index_t Channels>
 bool save_png(const Image<T,Channels> &img, // Image data to write out
               const char *filepath,         // Where to save the image
