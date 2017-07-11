@@ -1,14 +1,12 @@
 CC = g++
-LD = g++
-AR = ar
 
 # compile
-INCLUDES = /usr/local/boost src geomc
+INCLUDES = src geomc
 CFLAGS   = -std=c++11 -O3 -Wall -c -g -fmessage-length=0 -Wno-unused -Wno-unused-local-typedefs
 IFLAGS   = $(addprefix -I, $(INCLUDES))
 
 # link
-LIBDIRS  = /usr/local/boost/stage/lib
+LIBDIRS  = 
 LIBS     = png z
 LDFLAGS  = $(addprefix -l, $(LIBS)) $(addprefix -L, $(LIBDIRS)) 
 
@@ -27,8 +25,8 @@ clean:
 
 ## binaries
 
-lightbox: build/lightbox.o bin
-	$(CC) $(LDFLAGS) build/lightbox.o -o bin/lightbox
+lightbox: build/*.o bin
+	$(CC) $(LDFLAGS) build/*.o -o bin/lightbox
 
 build/%.o : src/%.cpp build
 	mkdir -p $(patsubst src/%, build/%, $(dir $<))
