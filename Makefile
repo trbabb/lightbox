@@ -25,7 +25,7 @@ clean:
 
 ## binaries
 
-lightbox: build/*.o bin
+lightbox: $(OBJ) bin
 	$(CC) $(LDFLAGS) build/*.o -o bin/lightbox
 
 build/%.o : src/%.cpp build
